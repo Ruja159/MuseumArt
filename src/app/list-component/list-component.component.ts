@@ -3,6 +3,7 @@ import { NestedTreeControl } from '@angular/cdk/tree';
 import { MatTreeNestedDataSource } from '@angular/material/tree';
 import { GetMethodService } from '../get-method.service';
 import { elementEventFullName } from '@angular/compiler/src/view_compiler/view_compiler';
+import { ComunicationService } from '../comunication.service';
 
 interface Collections {
   id: number;
@@ -30,6 +31,8 @@ export class ListComponentComponent implements OnInit {
 
   public tempCollection;
 
+  public searchText;
+
   public collections: any;
   localStorageItems: any;
   allCollections: any;
@@ -39,7 +42,9 @@ export class ListComponentComponent implements OnInit {
   dataSource = new MatTreeNestedDataSource<Collections>();
 
 
-  constructor(private service: GetMethodService) {}
+  constructor(private service: GetMethodService ,
+    private comunicationService: ComunicationService
+    ) {}
 
   ngOnInit(): void {
     this.service.getCollections().subscribe((data: any) => {
@@ -47,6 +52,7 @@ export class ListComponentComponent implements OnInit {
       console.log(this.collections);
       const objToStr = JSON.stringify(data);
       localStorage.setItem('collections', objToStr);
+      this.clickEvent('All');
     });
 
     this.localStorageItems = JSON.parse(
@@ -82,52 +88,37 @@ export class ListComponentComponent implements OnInit {
         break;
       default:
         this.dataSource.data = this.collections;
+        this.tempCollection = this.collections;
     }
+    this.doSearch();
   }
 
   onSave(data) {
     console.log(data);
     this.valueOfNode = data;
+
+    this.comunicationService.sendId(data)
+
   }
 
   hasChild = (_: number, node: Collections) =>
     !!node.collection && node.collection.length > 0;
 
-  // searchTree(element, searchKey: string, type: string) {
-  //   if (
-  //     element.name.toLowerCase().includes(searchKey, 0) &&
-  //     element.type === type
-  //   ) {
-  //     return element;
-  //   } else if (element.collection != null) {
-  //     var i;
-  //     var result = null;
-  //     for (i = 0; result == null && i < element.collection.length; i++) {
-  //       result = this.searchTree(element.collection[i], searchKey, type);
-  //     }
-  //     return result;
-  //   }
-  //   return null;
-  // }
-
-  // applyFilter(event: Event) {
-  //   const filterValue = (event.target as HTMLInputElement).value;
-  //   let toSearch = filterValue.trim().toLowerCase();
-
-  //   console.log(this.searchTree(this.localStorageItems[0], toSearch, 'potery'));
-  // }
 
   onSearchChange(event) {
-    const keyword = event.target.value;
-    this.tempCollection = JSON.parse(JSON.stringify(this.tempCollection)); //make deep clone of aray
-    this.tempCollection.forEach(museum => {
-      museum.collection.forEach(department => {
-        department.collection = department.collection.filter(i => i.name.toLowerCase().includes(keyword.toLowerCase()));
-      })
-    });
-    this.dataSource.data = this.tempCollection
+    this.searchText = event.target.value;
+    this.doSearch();
+  }
 
-    console.log(keyword);
-
+  doSearch() {
+    if (this.searchText) {
+      this.tempCollection = JSON.parse(JSON.stringify(this.tempCollection)); //make deep clone of aray
+      this.tempCollection.forEach(museum => {
+        museum.collection.forEach(department => {
+          department.collection = department.collection.filter(i => i.name.toLowerCase().includes(this.searchText.toLowerCase()));
+        })
+      });
+      this.dataSource.data = this.tempCollection
+    }
   }
 }

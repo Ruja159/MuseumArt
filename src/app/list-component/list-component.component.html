@@ -13,7 +13,7 @@
       <mat-radio-button value="painting">Painting</mat-radio-button>
       <mat-radio-button value="potteries">Potteries</mat-radio-button> -->
     <label>
-      <input type="radio" value="All" [(ngModel)] = "radioValue" (click) = "clickEvent('All')" />  All
+      <input type="radio" value="All" [(ngModel)] = "radioValue" (click) = "clickEvent('All')"/>  All
     </label>
     <label>
       <input type="radio" value="Painting" [(ngModel)] = 'radioValue' (click) = "clickEvent('Painting')"/>  Painting
@@ -44,7 +44,7 @@
   <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle>
     <li class="mat-tree-node">
       <!-- use a disabled button to provide padding for tree leaf -->
-      <button mat-icon-button  (click)="onSave(node.name)"> {{ node.name }}</button>
+      <button mat-icon-button  (click)="onSave(node.id)"> {{ node.name }}</button>
       <!-- {{ node.name }} -->
      
     </li>

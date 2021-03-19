@@ -1,1 +1,35 @@
-<p>edit-component works!</p>
+<div fxLayout="column" class="edit-global" > 
+    <label>Title</label>
+    <mat-form-field appearance="outline">
+        <input
+          matInput
+          placeholder="Ex. placeholder"
+          #input
+          value="{{items ? items.name : ''}}"
+        />
+      </mat-form-field>
+      <label>Image URL</label>
+      <mat-form-field appearance="outline">
+        <input
+          matInput
+          placeholder="Ex. placeholder"
+          #input
+          value="{{items ? items.url : ''}}"
+        />
+      </mat-form-field>
+      <label>Description</label>
+      <mat-form-field appearance="outline" class="descrtiption">
+        <input
+          matInput
+          placeholder="Ex. placeholder"
+          #input
+          value="{{items ? items.description : ''}}"
+      
+        /> 
+      </mat-form-field>
+
+    <div fxLayoutAlign="space-evenly  start">
+        <button mat-raised-button color="primary" style="width: 140px;">Save</button>
+        <button  mat-button color="primary" style="width: 140px;" (click)="previewItems()">Preview</button>
+    </div>
+</div>

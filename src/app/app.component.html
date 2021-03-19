@@ -1,10 +1,14 @@
 <div class="main-container" fxLayout fxLayoutAlign="center stretch">
-  <div class="left-container" fxFlex="30">
-    <app-list-component></app-list-component>
+  <div class="left-container" fxFlex="{{ editMode ? 50 : 30 }}">
+    <div *ngIf="editMode; else elseBlock">
+      <app-edit-component></app-edit-component>
+    </div>
+    <ng-template #elseBlock>
+      <app-list-component></app-list-component>
+    </ng-template>
   </div>
-  <div fxFlex="70">
 
+  <div fxFlex="{{ editMode ? 50 : 70 }}">
     <app-info-component></app-info-component>
   </div>
- 
 </div>

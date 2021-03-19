@@ -7,9 +7,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EditComponentComponent implements OnInit {
 
+ items: any
+  
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  previewItems(){
+
+    this.items = JSON.parse(
+      localStorage.getItem('allCollections') || '{}'
+    );
   }
 
 }

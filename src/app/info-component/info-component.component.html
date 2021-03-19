@@ -1,4 +1,17 @@
 <div class="main-container"   fxLayout = "column"  >
-  <div class="top-container" fxFlex="40%">{{artPicture}}</div>
-  <div   fxFlex="60%"></div>
+  <div class="top-container" fxFlex="40%" *ngIf="collectionId">
+    <img class="object-image" src="{{museumObj.url}}" />
+  </div>
+  <div fxFlex="60%">
+    <div fxLayout="column" fxLayoutAlign="space-around center" class="bottom-container">
+      <div class="title-edit" *ngIf="collectionId">
+        <span class="title">{{museumObj.name}}</span>
+        <button class="edit" (click) = "toggleEdit()" mat-raised-button color="primary" style="width: 140px;">Edit</button>
+      </div>
+  
+      <div class="description">
+        {{museumObj.description}}
+      </div>
+    </div>
+  </div>
 </div>
