@@ -7,10 +7,17 @@ import { Subject } from 'rxjs';
 export class ComunicationService {
   private _idComunicationSource = new Subject<any>();
   private _modeComunicationSource = new Subject<any>();
+  private _modeToogleFalse = new Subject<any>();
+  private _collections = new Subject<any>();
+
 
   componentId$ = this._idComunicationSource.asObservable();
 
   sendToggleMode$ = this._modeComunicationSource.asObservable();
+
+  sendToogleModeFalse$ = this._modeToogleFalse.asObservable();
+
+  sendCollection$ = this._collections.asObservable();
 
   constructor() {}
 
@@ -20,5 +27,13 @@ export class ComunicationService {
 
   sendToggleMode(mode : string){
     this._modeComunicationSource.next(mode);
+  }
+
+  sendToggleModeFalse(mode : string){
+    this._modeToogleFalse.next(mode);
+  }
+
+  sendCollection(data: any) {
+    this._collections.next(data);
   }
 }

@@ -1,35 +1,31 @@
-<div fxLayout="column" class="edit-global" > 
-    <label>Title</label>
-    <mat-form-field appearance="outline">
-        <input
-          matInput
-          placeholder="Ex. placeholder"
-          #input
-          value="{{items ? items.name : ''}}"
-        />
-      </mat-form-field>
-      <label>Image URL</label>
-      <mat-form-field appearance="outline">
-        <input
-          matInput
-          placeholder="Ex. placeholder"
-          #input
-          value="{{items ? items.url : ''}}"
-        />
-      </mat-form-field>
-      <label>Description</label>
-      <mat-form-field appearance="outline" class="descrtiption">
-        <input
-          matInput
-          placeholder="Ex. placeholder"
-          #input
-          value="{{items ? items.description : ''}}"
-      
-        /> 
-      </mat-form-field>
 
-    <div fxLayoutAlign="space-evenly  start">
-        <button mat-raised-button color="primary" style="width: 140px;">Save</button>
-        <button  mat-button color="primary" style="width: 140px;" (click)="previewItems()">Preview</button>
+<div class="container-fluid" fxLayout="column" class="edit-global">
+  <form [formGroup] = "registrationForm">
+    <div class="form-group">
+      <label>Title</label>
+        <input [class.is-invalid] ="registrationForm.controls.name.invalid &&
+        registrationForm.controls.name.touched"  formControlName = "name" type="text" class="form-control">
+        <small [class.d-none]="registrationForm.controls.name.valid || registrationForm.controls.name.untouched" class="text-danger">Title is required</small>
     </div>
+
+    
+    <div>
+      <label>Image URL</label>
+        <input [class.is-invalid] ="registrationForm.controls.url.invalid &&
+        registrationForm.controls.url.touched" formControlName = "url" type="text" class="form-control">
+        <small [class.d-none]="registrationForm.controls.url.valid || registrationForm.controls.url.untouched" class="text-danger">URL is required</small>
+    </div>
+
+    
+    <div>
+      <label>Description</label>
+        <input [class.is-invalid] ="registrationForm.controls.description.invalid &&
+        registrationForm.controls.description.touched" formControlName = "description" type="text" class="form-control">
+        <small [class.d-none]="registrationForm.controls.description.valid || registrationForm.controls.description.untouched" class="text-danger">URL is required</small>
+    </div>
+
+    <button  mat-raised-button color="primary" style="width: 140px; margin-top: 15px;" (click)="updateItems(newItems.id)" >Save</button>
+    <button  mat-button color="primary" style="width: 140px; margin-top: 15px;" (click)= "previewItems()">Preview</button>
+
+  </form>
 </div>

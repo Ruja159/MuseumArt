@@ -49,7 +49,6 @@ export class ListComponentComponent implements OnInit {
   ngOnInit(): void {
     this.service.getCollections().subscribe((data: any) => {
       this.collections = data;
-      console.log(this.collections);
       const objToStr = JSON.stringify(data);
       localStorage.setItem('collections', objToStr);
       this.clickEvent('All');
@@ -94,7 +93,6 @@ export class ListComponentComponent implements OnInit {
   }
 
   onSave(data) {
-    console.log(data);
     this.valueOfNode = data;
 
     this.comunicationService.sendId(data)

@@ -27,6 +27,10 @@ export class InfoComponentComponent implements OnInit {
       localStorage.setItem('allCollections', objToStr); }   
       )
     });
+
+    this.comunicationService.sendCollection$.subscribe((data) =>{
+      this.museumObj = data;
+    })
   }
 
   toggleEdit() {

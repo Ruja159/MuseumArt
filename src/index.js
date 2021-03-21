@@ -2,6 +2,8 @@ const express = require('express');
 const { parse } = require('ts-node');
 const app = express();
 
+app.use(express.json());
+
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -149,6 +151,40 @@ app.get('/api/getCollectionById/:id' , (req, res) => {
     const collection = collections.find(t => t.id === parseInt(req.params.id));
     if(!collection) res.status(404).send('The tree with given ID was not found');
     res.send(collection)
+})
+
+
+//addCollection
+app.post('/api/addCollection' , (req, res) => {
+const collection = {
+    id: collections.length + 1,
+    name: req.body.name,
+    type: req.body.type,
+    url: req.body.url,
+    description: req.body.description
+
+}
+
+collections.push(collection);
+res.send(collection)
+
+})
+
+
+//Update item
+
+app.post('/api/updateItem/:id', (req, res) =>{
+    const collection = collections.find(t => t.id === parseInt(req.params.id));
+    if(!collection) {
+        res.status(404).send('The tree with given ID was not found');
+    }
+
+    collection.name = req.body.name;
+    collection.type = req.body.type;
+    collection.url = req.body.url;
+    collection.description = req.body.description
+
+    res.send(collection);
 })
 
 app.post('/api')

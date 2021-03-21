@@ -21,5 +21,8 @@ export class AppComponent implements OnInit{
       this.editMode = true;
     });
 
+    this.comunicationService.sendToogleModeFalse$.subscribe((mode) => {
+      this.editMode = false;
+    });
   }
 }

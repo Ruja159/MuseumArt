@@ -12,6 +12,7 @@ import { AngularMaterialModule} from './material.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule} from '@angular/common/http';
 import { FlexLayoutModule } from "@angular/flex-layout";
+import {ReactiveFormsModule} from '@angular/forms'
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { FlexLayoutModule } from "@angular/flex-layout";
     NgbModule,
     HttpClientModule,
     FlexLayoutModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
     
   ],
   providers: [],
