@@ -63,7 +63,7 @@
         </button>
         {{ node.name }}
       </div>
-      <ul [class.example-tree-invisible]="!treeControl.isExpanded(node)">
+      <ul [class.example-tree-invisible]="treeControl.isExpanded(node)">
         <ng-container matTreeNodeOutlet></ng-container>
       </ul>
     </li>
