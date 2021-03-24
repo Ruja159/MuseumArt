@@ -36,6 +36,7 @@ export class ListComponentComponent implements OnInit {
   public collections: any;
   localStorageItems: any;
   allCollections: any;
+  newCollection: any;
 
   treeControl = new NestedTreeControl<Collections>((node) => node.collection);
 
@@ -57,12 +58,14 @@ export class ListComponentComponent implements OnInit {
     this.localStorageItems = JSON.parse(
       localStorage.getItem('collections') || '{}'
     );
+
+    this.comunicationService.sendNewCollections$.subscribe((data) =>{
+      this.newCollection = data
+    })
+ 
   }
 
   clickEvent( data) {
-    // if ((this.radioValue = 'all')) {
-    //   this.dataSource.data = this.collections;
-    // } else if (t)
     this.radioValue=data;
     switch(data) {
       case 'Painting': 
@@ -86,8 +89,17 @@ export class ListComponentComponent implements OnInit {
         this.dataSource.data = this.tempCollection;
         break;
       default:
-        this.dataSource.data = this.collections;
-        this.tempCollection = this.collections;
+        if(this.newCollection) {
+
+          this.dataSource.data = this.newCollection
+          this.tempCollection = this.newCollection
+
+        }
+        else {
+
+          this.dataSource.data = this.collections;
+          this.tempCollection = this.collections;
+        }
     }
     this.doSearch();
   }

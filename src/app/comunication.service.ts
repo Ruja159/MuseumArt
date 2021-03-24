@@ -9,6 +9,7 @@ export class ComunicationService {
   private _modeComunicationSource = new Subject<any>();
   private _modeToogleFalse = new Subject<any>();
   private _collections = new Subject<any>();
+  private _newCollections = new Subject<any>();
 
 
   componentId$ = this._idComunicationSource.asObservable();
@@ -18,6 +19,8 @@ export class ComunicationService {
   sendToogleModeFalse$ = this._modeToogleFalse.asObservable();
 
   sendCollection$ = this._collections.asObservable();
+
+  sendNewCollections$ = this._newCollections.asObservable();
 
   constructor() {}
 
@@ -35,5 +38,9 @@ export class ComunicationService {
 
   sendCollection(data: any) {
     this._collections.next(data);
+  }
+
+  sendNewCollection(data: any) {
+    this._newCollections.next(data);
   }
 }

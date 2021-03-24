@@ -19,12 +19,15 @@
     
     <div>
       <label>Description</label>
-        <input [class.is-invalid] ="registrationForm.controls.description.invalid &&
-        registrationForm.controls.description.touched" formControlName = "description" type="text" class="form-control">
-        <small [class.d-none]="registrationForm.controls.description.valid || registrationForm.controls.description.untouched" class="text-danger">URL is required</small>
-    </div>
+        <textarea   cdkTextareaAutosize
+            #autosize="cdkTextareaAutosize"
+            cdkAutosizeMinRows="30"  [class.is-invalid] ="registrationForm.controls.description.invalid &&
+        registrationForm.controls.description.touched" formControlName = "description" type="text" class="form-control" >  </textarea>
+        <small [class.d-none]="registrationForm.controls.description.valid || registrationForm.controls.description.untouched" class="text-danger">Description is required</small>
 
-    <button  mat-raised-button color="primary" style="width: 140px; margin-top: 15px;" (click)="updateItems(newItems.id)" >Save</button>
+      </div>
+
+    <button  mat-raised-button color="primary" type="submit" style="width: 140px; margin-top: 15px;" (click)="updateItems(newItems.id)" >Save</button>
     <button  mat-button color="primary" style="width: 140px; margin-top: 15px;" (click)= "previewItems()">Preview</button>
 
   </form>

@@ -5,3 +5,6 @@
 .descrtiption {
     height: 100%;
 }
+.text-area {
+    resize: none;
+}

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { mixinColor } from '@angular/material/core';
 import { ComunicationService } from '../comunication.service';
 import { GetMethodService } from '../get-method.service';
 
@@ -11,6 +12,7 @@ import { GetMethodService } from '../get-method.service';
 export class EditComponentComponent implements OnInit {
   newItems;
   newForm;
+  newCollections;
 
   constructor(private fb: FormBuilder, private service: GetMethodService, private comunicationService: ComunicationService) {}
 
@@ -19,17 +21,37 @@ export class EditComponentComponent implements OnInit {
   }
 
   previewItems() {
-    this.registrationForm.setValue({
-      name: this.newItems.name,
-      url: this.newItems.url,
-      description: this.newItems.description,
-    });
+
+    const newColelction = JSON.parse(localStorage.getItem('newCollection') || '{}');
+
+
+      if(newColelction.id == this.newItems.id){
+        this.registrationForm.setValue({
+          id: this.newItems.id,
+          name: newColelction.name,
+          url: newColelction.url,
+          description: newColelction.description,
+          type: this.newItems.type
+        })
+      }
+      else {
+        this.registrationForm.setValue({
+             id: this.newItems.id,
+          name: this.newItems.name,
+          url: this.newItems.url,
+          description: this.newItems.description,
+          type: this.newItems.type
+        });
+        
+      }
   }
 
   registrationForm = this.fb.group({
+    id: [] ,
     name: ['', [Validators.required]],
     url: ['', Validators.required],
     description: ['', Validators.required],
+    type: ['']
   });
 
   updateItems(id) {
@@ -39,5 +61,10 @@ export class EditComponentComponent implements OnInit {
 
     this.comunicationService.sendToggleModeFalse('false')
     this.comunicationService.sendCollection(JSON.parse(localStorage.getItem('newCollection') || '{}'))
+
+    // this.service.getAllCollections().subscribe((data) => {
+    //    this.comunicationService.sendNewCollection(data)
+    // })
   }
+  
 }
