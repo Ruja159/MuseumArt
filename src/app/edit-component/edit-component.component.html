@@ -21,7 +21,8 @@
       <label>Description</label>
         <textarea   cdkTextareaAutosize
             #autosize="cdkTextareaAutosize"
-            cdkAutosizeMinRows="30"  [class.is-invalid] ="registrationForm.controls.description.invalid &&
+            cdkAutosizeMinRows="30"
+            cdkAutosizeMaxRows="30" [class.is-invalid] ="registrationForm.controls.description.invalid &&
         registrationForm.controls.description.touched" formControlName = "description" type="text" class="form-control" >  </textarea>
         <small [class.d-none]="registrationForm.controls.description.valid || registrationForm.controls.description.untouched" class="text-danger">Description is required</small>
 
